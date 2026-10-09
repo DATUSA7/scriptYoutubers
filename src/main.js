@@ -1,4 +1,4 @@
-import { obtenerVideos } from './store.js';
+import { obtenerVideos } from './components/store.js';
 import { renderizarMetricasGenerales } from './components/metrics.js';
 import { inicializarTop10Scene } from './components/top10Scene.js';
 import { inicializarMenosVistosScene } from './components/menosVistosScene.js';
