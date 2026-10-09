@@ -1,0 +1,160 @@
+/* ==========================================
+   CONFIGURACIÓN GENERAL Y RESET
+   ========================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background-color: #0f172a; /* Fondo oscuro moderno */
+  color: #f8fafc;
+  line-height: 1.5;
+  padding: 0 1rem;
+}
+
+/* ==========================================
+   CONTENEDORES DE SECCIÓN Y OBSERVADOR
+   ========================================== */
+.observer-section {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 2rem 1.5rem;
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  backdrop-filter: blur(10px);
+}
+
+.observer-section h2 {
+  font-size: clamp(1.25rem, 2.5vw, 1.8rem); /* Texto responsivo automático */
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.section-instruction {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ==========================================
+   ADAPTABILIDAD PARA LOS CANVAS 3D (THREE.JS)
+   ========================================== */
+.canvas-3d-wrapper {
+  width: 100%;
+  height: 350px; /* Altura ideal en escritorio */
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background: rgba(15, 23, 42, 0.5);
+}
+
+/* ==========================================
+   TARJETAS DE DETALLES INFERIORES
+   ========================================== */
+.video-detail-card {
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+  min-height: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.detail-placeholder {
+  color: #64748b;
+  text-align: center;
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.detail-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.detail-rank {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.detail-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* Grid de métricas responsivo automáticamente */
+.detail-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  color: #cbd5e1;
+}
+
+.detail-metrics-grid span {
+  color: #94a3b8;
+}
+
+.detail-btn {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: opacity 0.2s ease;
+}
+
+.detail-btn:hover {
+  opacity: 0.9;
+}
+
+/* ==========================================
+   MEDIA QUERIES PARA DISPOSITIVOS MÓVILES
+   ========================================== */
+@media (max-width: 768px) {
+  body {
+    padding: 0 0.5rem;
+  }
+
+  .observer-section {
+    margin: 1.5rem auto;
+    padding: 1.25rem 0.75rem;
+  }
+
+  .canvas-3d-wrapper {
+    height: 280px; /* Reducimos ligeramente la altura en tablets y móviles para aprovechar la pantalla */
+  }
+
+  .detail-metrics-grid {
+    grid-template-columns: 1fr 1fr; /* En móviles de buen tamaño ponemos 2 columnas */
+  }
+}
+
+@media (max-width: 480px) {
+  .canvas-3d-wrapper {
+    height: 240px; /* Altura compacta para celulares pequeños */
+  }
+
+  .detail-metrics-grid {
+    grid-template-columns: 1fr; /* En pantallas muy estrechas una sola columna para que no se amontone */
+  }
+
+  .observer-section h2 {
+    font-size: 1.15rem;
+  }
+}

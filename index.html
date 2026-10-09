@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/src/style.css" />
+    <script src="https://kit.fontawesome.com/4203c36696.js" crossorigin="anonymous"></script>
+      <link rel="icon" href="data:;base64,=">
+    <title>La Güerita Alemana</title>
+  </head>
+  <body>
+
+    <section id="seccion-general-canal" class="observer-section">
+  <h2>📊 Resumen General del Canal</h2>
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <h3>Total Videos</h3>
+      <p id="kpi-videos" class="metric-value">Cargando...</p>
+    </div>
+    <div class="metric-card">
+      <h3>Total Vistas</h3>
+      <p id="kpi-vistas" class="metric-value">Cargando...</p>
+    </div>
+    <div class="metric-card">
+      <h3>Total Me Gusta</h3>
+      <p id="kpi-likes" class="metric-value">Cargando...</p>
+    </div>
+    <div class="metric-card">
+      <h3>Total Comentarios</h3>
+      <p id="kpi-comentarios" class="metric-value">Cargando...</p>
+    </div>
+    <div class="metric-card">
+      <h3>Engagement</h3>
+      <p id="kpi-engagement" class="metric-value">Cargando...</p>
+    </div>
+  </div>
+</section>
+
+
+<section id="seccion-top10" class="observer-section">
+  <h2>🏆 Top 10 Videos Más Vistos (Gráfica 3D Interactiva)</h2>
+  <p class="section-instruction">Haz clic en cualquier cilindro 3D para ver los detalles del video.</p>
+  
+  <!-- Contenedor para el Canvas de Three.js -->
+  <div id="top10-canvas-container" class="canvas-3d-wrapper"></div>
+
+  <!-- Contenedor de detalles inferior -->
+  <div id="top10-detail-card" class="video-detail-card">
+    <div class="detail-placeholder">Selecciona un cilindro arriba para ver las métricas del video.</div>
+  </div>
+</section>
+
+<section id="seccion-menos-vistos" class="observer-section">
+  <h2>📉 Top 10 Videos Menos Vistos (Gráfica 3D Interactiva)</h2>
+  <p class="section-instruction">Haz clic en cualquier cilindro 3D para ver los detalles del video.</p>
+  
+  <!-- Contenedor para el Canvas de Three.js de Menos Vistos -->
+  <div id="menos-vistos-canvas-container" class="canvas-3d-wrapper"></div>
+
+  <!-- Contenedor de detalles inferior -->
+  <div id="menos-vistos-detail-card" class="video-detail-card">
+    <div class="detail-placeholder">Selecciona un cilindro arriba para ver las métricas del video.</div>
+  </div>
+</section>
+
+<section id="seccion-playlists" class="observer-section">
+  <h2>📁 Rendimiento por Playlist / Categoría</h2>
+  <p class="section-instruction">Visualiza el resumen de vistas por categoría y haz clic en un cilindro para ver el detalle.</p>
+  
+  <!-- Contenedor para el Canvas de Three.js -->
+  <div id="playlists-canvas-container" class="canvas-3d-wrapper"></div>
+
+  <!-- Contenedor de detalles inferior -->
+  <div id="playlists-detail-card" class="video-detail-card">
+    <div class="detail-placeholder">Selecciona una categoría arriba para ver sus métricas agregadas.</div>
+  </div>
+</section>
+
+<!-- Crecimiento Top Más Vistos -->
+<section id="seccion-crecimiento-mas" class="observer-section">
+  <h2>📈 Evolución Temporal: Top 10 Más Vistos</h2>
+  <p class="section-instruction">Línea de tiempo cronológica de tus videos con mayor impacto. Haz clic en un cilindro para ver el detalle.</p>
+  <div id="crecimiento-canvas-container" class="canvas-3d-wrapper"></div>
+  <div id="crecimiento-detail-card" class="video-detail-card">
+    <div class="detail-placeholder">Selecciona un cilindro para ver las métricas del video.</div>
+  </div>
+</section>
+
+<!-- Crecimiento Top Menos Vistos -->
+<section id="seccion-crecimiento-menos" class="observer-section">
+  <h2>📉 Evolución Temporal: Top 10 Menos Vistos</h2>
+  <p class="section-instruction">Línea de tiempo cronológica de los videos con menor tracción inicial para análisis. Haz clic para ver detalles.</p>
+  <div id="crecimiento-menos-canvas-container" class="canvas-3d-wrapper"></div>
+  <div id="crecimiento-menos-detail-card" class="video-detail-card">
+    <div class="detail-placeholder">Selecciona un cilindro para ver las métricas del video.</div>
+  </div>
+</section>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
