@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         if (accionesPorSeccion[idSeccion]) {
           accionesPorSeccion[idSeccion]();
-          observerInstance.unobserve(entry.target);
+          observerInstance.unobserve(entry.target); // Dejamos el unobserve para evitar recargas innecesarias al hacer scroll
         }
       }
     });

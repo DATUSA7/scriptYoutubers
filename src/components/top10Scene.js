@@ -7,6 +7,9 @@ export function inicializarTop10Scene(videos) {
   
   if (!container || !videos || videos.length === 0) return;
 
+  // Limpiar contenedor por seguridad si ya existía canvas previo
+  container.innerHTML = '';
+
   // 1. Obtener el Top 10 de más vistos
   const top10 = [...videos]
     .sort((a, b) => b.vistas - a.vistas)
@@ -23,7 +26,7 @@ export function inicializarTop10Scene(videos) {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   container.appendChild(renderer.domElement);
 
-  // 3. Crear un elemento HTML flotante para el Tooltip
+  // 3. Crear el elemento HTML flotante para el Tooltip
   const tooltip = document.createElement('div');
   tooltip.style.position = 'absolute';
   tooltip.style.background = 'rgba(15, 23, 42, 0.9)';
@@ -65,17 +68,16 @@ export function inicializarTop10Scene(videos) {
   floor.position.y = -0.1;
   scene.add(floor);
 
-  // 7. Crear los cilindros 3D con datos de animación para que "emerjan"
+  // 7. Crear los cilindros 3D estables
   const cylinders = [];
   const maxViews = Math.max(...top10.map(v => v.vistas), 1);
-  
   const spacing = 1.5;
   const startX = -((top10.length - 1) * spacing) / 2;
 
   top10.forEach((video, index) => {
-    const targetHeight = Math.max((video.vistas / maxViews) * 4.5, 0.6);
+    const height = Math.max((video.vistas / maxViews) * 4.5, 0.6);
     
-    const geometry = new THREE.CylinderGeometry(0.5, 0.5, targetHeight, 32);
+    const geometry = new THREE.CylinderGeometry(0.5, 0.5, height, 32);
     const material = new THREE.MeshStandardMaterial({
       color: 0x3b82f6,
       roughness: 0.2,
@@ -83,23 +85,16 @@ export function inicializarTop10Scene(videos) {
     });
 
     const cylinder = new THREE.Mesh(geometry, material);
+    // Posición fija inmediata sobre el piso
+    cylinder.position.set(startX + (index * spacing), height / 2, 0);
     
-    // Animación inicial: Empezamos con altura 0.01 (hundidos en el piso) para hacer el efecto de emergencia
-    cylinder.position.set(startX + (index * spacing), 0, 0);
-    cylinder.scale.set(1, 0.01, 1);
-    
-    cylinder.userData = { 
-      videoData: video, 
-      rank: index + 1,
-      targetHeight: targetHeight,
-      currentAnimProgress: 0 // Control de animación de subida
-    };
+    cylinder.userData = { videoData: video, rank: index + 1 };
     
     scene.add(cylinder);
     cylinders.push(cylinder);
   });
 
-  // 8. Raycaster para Detección de Hover (Tooltip) y Clics
+  // 8. Raycaster para Tooltip y Clics
   const raycaster = new THREE.Raycaster();
   const mouse = new THREE.Vector2();
   let hoveredCylinder = null;
@@ -119,7 +114,6 @@ export function inicializarTop10Scene(videos) {
         document.body.style.cursor = 'pointer';
       }
 
-      // Mostrar Tooltip con el título del video y sus vistas
       tooltip.style.display = 'block';
       tooltip.style.left = `${event.clientX - rect.left + 15}px`;
       tooltip.style.top = `${event.clientY - rect.top - 25}px`;
@@ -170,25 +164,11 @@ export function inicializarTop10Scene(videos) {
   renderer.domElement.addEventListener('pointermove', onPointerMove);
   renderer.domElement.addEventListener('pointerdown', onPointerDown);
 
-  // 9. Bucle de Animación (Efecto de emergencia de cilindros + rotación suave + órbita)
+  // 9. Bucle de Animación limpio (solo rotación y controles de órbita)
   function animate() {
     requestAnimationFrame(animate);
 
     cylinders.forEach((cyl) => {
-      // Animación de emergencia fluida al cargar la sección
-      if (cyl.userData.currentAnimProgress < 1) {
-        cyl.userData.currentAnimProgress += 0.03; // Velocidad de subida
-        const progress = Math.min(cyl.userData.currentAnimProgress, 1);
-        
-        // Efecto "easeOut" para que la subida sea elegante
-        const easeProgress = 1 - Math.pow(1 - progress, 3);
-        
-        const currentH = cyl.userData.targetHeight * easeProgress;
-        cyl.scale.set(1, easeProgress, 1);
-        cyl.position.y = currentH / 2;
-      }
-
-      // Rotación suave individual sobre su eje
       cyl.rotation.y += 0.008;
     });
 
